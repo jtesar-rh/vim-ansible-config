@@ -6,6 +6,8 @@ ansible-galaxy collection install ansible.posix ansible.utils
 curl -fLo ~/.vim/autoload/plug.vim --create-dirs \
     https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
 cat <<EOF > ~/.vimrc
+echo export ANSIBLE_PYTHON_INTERPRETER=auto_silent >> ~/.bashrc
+
 " --- Vim-Plug Section ---
 call plug#begin('~/.vim/plugged')
 
