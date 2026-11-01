@@ -1,5 +1,5 @@
 #!/bin/bash
-sudo dnf install -y nodejs npm pip podman
+sudo dnf install -y nodejs npm pip podman git
 pip install ansible-lint ansible-navigator
 curl -fLo ~/.vim/autoload/plug.vim --create-dirs \
     https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
@@ -25,7 +25,6 @@ set background=dark
 silent! colorscheme gruvbox
 
 set number
-set relativenumber
 set cursorline
 set hidden
 set updatetime=300
