@@ -50,7 +50,12 @@ augroup ansible_ft
 augroup END
 
 " --- Plugin Options ---
-let g:ansible_unindent_after_newline = 1
+let g:ansible_unindent_after_newline = 0
+augroup stop_ansible_auto_indent
+  autocmd!
+  autocmd FileType yaml,yaml.ansible setlocal indentexpr=
+augroup END
+
 let g:ansible_attribute_highlight = "ob"
 let g:indentLine_char = '│'
 let g:indentLine_fileType = ['yaml', 'yml', 'yaml.ansible']
