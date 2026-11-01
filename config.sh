@@ -141,6 +141,22 @@ augroup ansible_execution
   autocmd FileType yaml,yaml.ansible nnoremap <buffer> <leader>r :w<CR>:terminal ansible-playbook %<CR>
 
 augroup END
+" --- YAML & Ansible Code Folding ---
+augroup yaml_folding
+  autocmd!
+  " Enable indentation-based folding for YAML/Ansible
+  autocmd FileType yaml,yaml.ansible setlocal foldmethod=indent
+
+  " Prevent files from opening completely folded by default
+  autocmd FileType yaml,yaml.ansible setlocal foldlevel=99
+
+  " Do not automatically close folds when moving around
+  autocmd FileType yaml,yaml.ansible setlocal foldclose=
+augroup END
+
+" Space as fold toggle in Normal mode (optional, ergonomic shortcut)
+nnoremap <silent> <Space><Space> za
+
 EOF
 
 cat <<EOF > ~/.vim/coc-settings.json
