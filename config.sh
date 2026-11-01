@@ -1,6 +1,6 @@
 #!/bin/bash
-sudo dnf install -y nodejs npm pip
-pip install ansible-lint
+sudo dnf install -y nodejs npm pip podman
+pip install ansible-lint ansible-navigator
 curl -fLo ~/.vim/autoload/plug.vim --create-dirs \
     https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
 cat <<EOF > ~/.vimrc
