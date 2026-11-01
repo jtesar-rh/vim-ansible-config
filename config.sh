@@ -138,4 +138,4 @@ cat <<EOF > ~/.vim/coc-settings.json
 EOF
 
 rm -rf ~/.config/coc/extensions/coc-yaml-data/
-vim +'PlugInstall --sync' +qa
+vim -es -u ~/.vimrc -c "PlugInstall" -c "qa"
