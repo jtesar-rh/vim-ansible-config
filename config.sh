@@ -107,7 +107,7 @@ cat <<EOF > ~/.vim/coc-settings.json
     "ansible": {
       "command": "ansible-language-server",
       "args": ["--stdio"],
-      "filetypes": ["yaml.ansible", "ansible"],
+      "filetypes": ["yaml.ansible", "ansible", "yaml"],
       "rootPatterns": [
         "ansible.cfg",
         ".ansible-lint",
