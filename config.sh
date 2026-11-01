@@ -105,30 +105,33 @@ nmap <silent> ]g <Plug>(coc-diagnostic-next)
 augroup ansible_execution
   autocmd!
 
-  " Map ansible-playbook with syntax-check to :make
-  autocmd FileType yaml,yaml.ansible setlocal makeprg=ansible-playbook\ --syntax-check\ %
+  " Default make to dry-run
+  autocmd FileType yaml,yaml.ansible setlocal makeprg=ansible-playbook\ --check\ --diff\ %
 
-  " Errorformat to catch line & column numbers from syntax errors and tracebacks
+  " Errorformat parsing:
+  " 1. Origin lines: Origin: /path/to/playbook.yaml:3:7
+  " 2. Task failure headers: [ERROR]: Task failed: ...
+  " 3. Fatal host output: fatal: [host]: FAILED! => ...
+  " 4. Syntax check multi-line blocks
   autocmd FileType yaml,yaml.ansible setlocal errorformat=
+        \%E[ERROR]:\ %m,
+        \%Efatal:\ [%*[^]]]:\ FAILED!\ =>\ %m,
+        \%COrigin:\ %f:%l:%c,
+        \%COrigin:\ %f:%l,
         \%EERROR!\ %m,
         \%CThe\ error\ appears\ to\ have\ been\ in\ '%f':\ line\ %l\\,\ column\ %c\\,\ %m,
         \%CThe\ error\ appears\ to\ have\ been\ in\ '%f':\ line\ %l\\,\ %m,
-        \%C\ \ File\ \"%f\"\\,\ line\ %l\\,\ in\ %m,
         \%-G%.%#
 
-  " <F9>: Run fast syntax check, jump to error, and open quickfix if errors exist
-  autocmd FileType yaml,yaml.ansible nnoremap <buffer> <F9> :w<CR>:silent make<CR>:redraw!<CR>:cwindow<CR>
 
-  " <F10>: Run actual playbook in an integrated terminal split
-  autocmd FileType yaml,yaml.ansible nnoremap <buffer> <F10> :w<CR>:terminal ansible-playbook %<CR>
+  " <F9> / <leader>d: Dry-run (--check --diff) with Quickfix navigation
+  autocmd FileType yaml,yaml.ansible nnoremap <buffer> <F8> :w<CR>:setlocal makeprg=ansible-playbook\ --check\ %<CR>:silent make<CR>:redraw!<CR>:cwindow<CR>
+  autocmd FileType yaml,yaml.ansible nnoremap <buffer> <leader>d :w<CR>:setlocal makeprg=ansible-playbook\ --check\ %<CR>:silent make<CR>:redraw!<CR>:cwindow<CR>
+
+  " <F10> / <leader>r: Live playbook execution in terminal split
+  autocmd FileType yaml,yaml.ansible nnoremap <buffer> <F9> :w<CR>:terminal ansible-playbook %<CR>
+  autocmd FileType yaml,yaml.ansible nnoremap <buffer> <leader>r :w<CR>:terminal ansible-playbook %<CR>
 augroup END
-
-" Quickfix navigation shortcuts (works globally)
-nnoremap <leader>co :copen<CR>    " Open quickfix window manually
-nnoremap <leader>cc :cclose<CR>   " Close quickfix window
-nnoremap ]q :cnext<CR>            " Jump to next error
-nnoremap [q :cprev<CR>            " Jump to previous error
-
 EOF
 
 cat <<EOF > ~/.vim/coc-settings.json
