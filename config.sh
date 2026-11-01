@@ -139,3 +139,4 @@ EOF
 
 rm -rf ~/.config/coc/extensions/coc-yaml-data/
 vim -es -u ~/.vimrc -c "PlugInstall" -c "qa"
+echo export ANSIBLE_PYTHON_INTERPRETER=auto_silent >> ~/.bashrc
