@@ -127,13 +127,19 @@ augroup ansible_execution
         \%-G%.%#
 
 
-  " <F9> / <leader>d: Dry-run (--check --diff) with Quickfix navigation
-  autocmd FileType yaml,yaml.ansible nnoremap <buffer> <F8> :w<CR>:setlocal makeprg=ansible-playbook\ --check\ %<CR>:silent make<CR>:redraw!<CR>:cwindow<CR>
+
+  " <F7> / <leader>d: Dry-run (--check) with Quickfix navigation
+  autocmd FileType yaml,yaml.ansible nnoremap <buffer> <F7> :w<CR>:setlocal makeprg=ansible-playbook\ --check\ %<CR>:silent make<CR>:redraw!<CR>:cwindow<CR>
   autocmd FileType yaml,yaml.ansible nnoremap <buffer> <leader>d :w<CR>:setlocal makeprg=ansible-playbook\ --check\ %<CR>:silent make<CR>:redraw!<CR>:cwindow<CR>
 
-  " <F10> / <leader>r: Live playbook execution in terminal split
+  " <F8> / <leader>r: Live playbook execution wit Quickfix navigation
+  autocmd FileType yaml,yaml.ansible nnoremap <buffer> <F8> :w<CR>:setlocal makeprg=ansible-playbook\ %<CR>:silent make<CR>:redraw!<CR>:cwindow<CR>
+  autocmd FileType yaml,yaml.ansible nnoremap <buffer> <leader>d :w<CR>:setlocal makeprg=ansible-playbook\ --check\ %<CR>:silent make<CR>:redraw!<CR>:cwindow<CR>
+
+ " <F9> / <leader>r: Live playbook execution in terminal split
   autocmd FileType yaml,yaml.ansible nnoremap <buffer> <F9> :w<CR>:terminal ansible-playbook %<CR>
   autocmd FileType yaml,yaml.ansible nnoremap <buffer> <leader>r :w<CR>:terminal ansible-playbook %<CR>
+
 augroup END
 EOF
 
